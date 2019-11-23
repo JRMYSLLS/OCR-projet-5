@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./App/public/css/style.css">
+    <title>welcome</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand link-custom name" href="index.php?action=chapter">
+          <i class="fas fa-baby-carriage"></i>
+            DAD IN FORMATION
+          </a>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">   
+                <a class="nav-link link-custom" href="index.php?action=login">Connexion / Inscription</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>
