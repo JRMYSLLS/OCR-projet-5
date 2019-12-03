@@ -109,7 +109,7 @@ class MembersController extends Controller{
                                     <body>
                                 </html>
                                 ';
-                                $this->sendMail($mail,$pseudo,$messageMail,$confirmKey);
+                                $this->sendMail($mail,$messageMail);
                                 $member->registration($pseudo,$mail,$password,$confirmKey);
                                 header('location: index.php?action=welcome');
 
