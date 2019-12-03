@@ -56,11 +56,28 @@ class MembersManager extends Manager{
         return $result;
       }
 
-      public function connection($mail){
+      public function selectByMail($mail){
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT * FROM Members WHERE mail=?');
         $req->execute(array($mail));
         $result = $req->fetch();
+
+        return $result;
+      }
+
+      public function countByPseudo($pseudo){
+        $db = $this->dbconnect();
+        $req = $db->prepare('SELECT * FROM Members WHERE pseudo=?');
+        $req->execute(array($pseudo));
+        $result = $req->rowCount();
+
+        return $result;
+      }
+
+      public function resetPass($mdp,$pseudo){
+        $db = $this->dbconnect();
+        $req = $db->prepare('UPDATE Members SET mdp=? WHERE pseudo=?');
+        $result = $req->execute(array($mdp,$pseudo));
 
         return $result;
       }
