@@ -3,6 +3,7 @@ session_start();
 ini_set('display_errors',1);
 require_once 'vendor/autoload.php';
 
+use App\Controller\AstucesController;
 use App\Controller\Controller;
 use App\Controller\MembersController;
 
@@ -11,6 +12,7 @@ use App\Controller\MembersController;
 $action ='';
 
 $member = new MembersController();
+$astuces = new AstucesController();
 
 if(isset($_GET['action'])){
     $action = $_GET['action'];
@@ -60,6 +62,18 @@ try{
 
         case 'resetConfirm':
             $member->resetConfirm();
+        break;
+
+        case 'homeUser':
+            $astuces->homeUser();
+        break;
+
+        case 'articles':
+            $astuces->getAstuces();
+        break;
+
+        case 'validateAstuce':
+            $astuces->validateAstuce();
         break;
 
         default:
