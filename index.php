@@ -4,6 +4,7 @@ ini_set('display_errors',1);
 require_once 'vendor/autoload.php';
 
 use App\Controller\AstucesController;
+use App\Controller\ChatController;
 use App\Controller\Controller;
 use App\Controller\MembersController;
 
@@ -13,6 +14,7 @@ $action ='';
 
 $member = new MembersController();
 $astuces = new AstucesController();
+$chat = new ChatController();
 
 if(isset($_GET['action'])){
     $action = $_GET['action'];
@@ -74,6 +76,30 @@ try{
 
         case 'validateAstuce':
             $astuces->validateAstuce();
+        break;
+
+        case 'deleteAstuceForUser':
+            $astuces->deleteAstuceForUser();
+        break;
+
+        case 'writeAstuce':
+            $astuces->writeAstuce();
+        break;
+
+        case 'addAstuce':
+            $astuces->addAstuce();
+        break;
+
+        case 'deleteAstuceByUser':
+            $astuces->deleteAstuceByUser();
+        break;
+
+        case 'chatPage':
+            $chat->chatPage();
+        break;
+
+        case 'chatMessage':
+            $chat->sendMessage();
         break;
 
         default:

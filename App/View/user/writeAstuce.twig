@@ -1,0 +1,19 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+<div class="container margin-menu-custom">
+    <form action="index.php?action=addAstuce" method="POST">
+        <div class="form-group">
+            <label for="title">Titre</label>
+            <input type="text" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label for="content">Votre astuce</label>
+            <textarea class="form-control" name="content" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Partager l'astuce" name="addAstuce" class="form-control blue-bg white-txt">
+        </div>
+    </form>
+</div>
+{% endblock %}
