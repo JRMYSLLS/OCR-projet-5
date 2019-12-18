@@ -112,27 +112,24 @@ class MembersController extends Controller{
                                 $this->sendMail($mail,$messageMail);
                                 $member->registration($pseudo,$mail,$password,$confirmKey);
                                 header('location: index.php?action=welcome');
+                                exit(0);
 
                             }else{
                                 $this->setFlash('Ce pseudo est déja utilisé.');
-                                $header;
                             }
                         }else{
                             $this->setFlash('Ce mail est déja utilisé.');
-                            $header;
                         }
                     }else{
                         $this->setFlash('Votre mail n\'est pas valide.');
-                        $header;
                     }
                 }else{
                     $this->setFlash('Vos mail ne sont pas identiques.');
-                    $header;
                 }
             }else{
                 $this->setFlash('Tout les champs sont obligatoire.');
-                $header;
             }
+            header('location: index.php?action=registrationView');
         }
     }
 
@@ -152,28 +149,24 @@ class MembersController extends Controller{
                     if($verify['confirm'] == 1){
                         $_SESSION['pseudo'] = $verify['pseudo'];
                         $_SESSION['id'] = $verify['id'];
-                        $this->loadView();
-                        echo $this->twig->render('test.twig');
+                        
                         //$this->setFlash('Vous etes connecté','success');
+                        header('location: index.php?action=homeUser');
+                        exit(0);
                     }
                     
                     else{
                         $this->setFlash('votre compte n\'as pas etait validé, verifier vos mail');
-                        header('location: index.php?action=connectionView');
-                    }
-                    
+                    }            
                 }
-
                 else {
                     $this->setFlash('Mauvais mail ou mot de passe!!!');
-                    header('location: index.php?action=connectionView');
                 }
              }
-
             else {
                 $this->setFlash('Tout les champs sont obligatoires !');
-                header('location: index.php?action=connectionView');
           }
+          header('location: index.php?action=connectionView');
 
         }
 
