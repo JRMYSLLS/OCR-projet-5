@@ -4,10 +4,7 @@
      <div class="container margin-menu-custom">
         <div class="row">
             <div class="col-12 chat-content">
-                {% for message in messages %}
-                <p>{{message.membre}} à {{message.dtime}}</p>
-                <p>{{message.content}}</p>
-                {% endfor %}
+            
             </div>
         </div>
         <form action="index.php?action=chatMessage" method="POST" class="mt-3">

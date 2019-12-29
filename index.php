@@ -98,6 +98,10 @@ try{
             $chat->chatPage();
         break;
 
+        case 'refresh':
+            $chat->chatMessage();
+        break;
+
         case 'chatMessage':
             $chat->sendMessage();
         break;

@@ -1,4 +1,4 @@
-jQuery(function($){
+$(function($){
 
     var alert = $('#alert');
     if(alert.length > 0){
@@ -16,10 +16,10 @@ jQuery(function($){
           var scroll = $(window).scrollTop();
   
           if (scroll >= 20) {
-              header.css('opacity','1');
-              header.css('transition','1s')
+              header.css('background-color','white');
+              header.css('transition','2s')
           } else {
-              header.css('opacity','');
+              header.css('background-color','');
           }
       });
   });
@@ -33,3 +33,36 @@ jQuery(function($){
         }
     });
   });
+
+  /////////////////////TEST AJAX //////////////////
+
+  let url = 'index.php?action=refresh';
+
+  
+  function messageChat(){
+    
+    setTimeout(function(){
+      if(document.querySelector('.chat-content')){
+        ajaxGet(url,function(response){
+          let div = document.querySelector('.chat-content');
+          div.innerHTML = response;
+          //console.log(Date.now());
+      });
+      }
+       
+      
+      messageChat();
+    }, 200)
+    
+  };
+
+  messageChat();
+  //console.log(document.URL);
+
+
+
+      
+
+  
+ 
+    

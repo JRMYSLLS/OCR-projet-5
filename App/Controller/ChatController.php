@@ -10,10 +10,16 @@ class ChatController extends Controller{
     public function chatPage(){
         $this->isConnect();
         $chat = new ChatManager();
-        $message = $chat->getMessage();
+        //$messages = $chat->getMessage();
         $this->loadView();
-        echo $this->twig->render('chat.twig',[
-            'messages'=>$message]);
+        echo $this->twig->render('chat.twig');
+    }
+
+    public function chatMessage(){
+        $this->isConnect();
+            $chat = new ChatManager();
+            $messages = $chat->getMessage();
+            require('./App/View/chatMessage.php');
     }
 
     public function sendMessage(){
