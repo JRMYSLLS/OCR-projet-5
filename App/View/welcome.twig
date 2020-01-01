@@ -1,5 +1,10 @@
 {% extends 'template.twig' %}
 
+{% block header %}
+<title>DAD IN FORMATION | welcome</title>
+<meta name="description" content="Bienvenue sur le site des futurs papas qui souhaitent apprendre à acceuillir leur enfant et comment évoluer avec">
+{% endblock %}
+
 {% block content %}
     
 
@@ -39,16 +44,22 @@
            </div>
         </div>
     </section>
-
+    
+    
     <section class="container mt-5 mb-5">
         <h1 class="display-4 site-name"><span class="blue">DAD IN</span><span class="pink"> FORMATION</span></h1>
          <p class="lead">Le premier site dédié au papa. <br>
                         Apprenez comment acceuillir votre enfant, découvrez les petits conseils de notre équipe <br>
                     et enfin partagez votre experience avec d'autre papa.</p>
          <hr class="my-4">
+    {%if session.pseudo is defined%}
+    {%else%}
          <p>Pour acceder au fonctionnalités du site inscrivez vous.</p>
          <a class="btn btn-primary btn-lg" href="index.php?action=registrationView" role="button">inscription</a>
+    {%endif%}
     </section>
+
+    
         
     
     

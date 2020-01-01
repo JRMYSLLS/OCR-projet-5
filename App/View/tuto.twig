@@ -1,0 +1,20 @@
+{% extends 'template.twig' %}
+
+{% block header %}
+<title>DAD IN FORMATION | tuto</title>
+<meta name="description" content="Retrouver les tutoriels des papas en cour de formation publier par notre equipe">
+{% endblock %}
+
+{% block content %}
+    <div class="container margin-menu-custom">
+        <h4 class="name pink"><i class="fas fa-graduation-cap blue"></i> TUTO</h4>
+        <p class="margin-0 blue">Retrouvez tous les tutos des papas en cour de formation</p>
+        {% for tuto in tutos %}
+        {{ tuto.title }}
+        {% endfor %}
+
+        <div>
+        </div>
+    </div>
+     
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'template.twig' %}
+
+{% block header %}
+<title>DAD IN FORMATION | Astuces</title>
+<meta name="description" content="Retrouver les tutoriels des papas en cour de formation publier par notre equipe">
+{% endblock %}
+
+{% block content %}
+
+<div class="container margin-menu-custom">
+        <h4 class="name pink"><i class="far fa-lightbulb blue"></i> Astuces</h4>
+        <p class="margin-0 blue">Retrouvez toutes les atuces des papas en cour de formation</p>
+   
+    <div class="row">
+        {% for article in articles %} 
+        <div class="col-xs-12 col-lg-6 mt-5">
+            <div class="card h-100 text-center">
+                <div class="card-header blue-bg">
+                <h5 class="card-title white-txt">{{article.title}}</h5>          
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    
+                    <p class="card-text">{{article.content}}</p>
+                    {%if article.id_membre == session.id%}
+                    <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}" class="btn blue-bg white-txt">Astuce validée</a>
+                    {%else%}
+                    <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}" class="btn pink-bg white-txt justify-self-start">Valider l'astuce</a>
+                    {%endif%}
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row mt-5 d-flex justify-content-center">
+        {% for i in 1..test%}
+        <p><a href="index.php?action=articles&amp;page={{ i }}">{{ i }}</a>&nbsp;&nbsp;</p>
+        {% endfor %}
+    </div>
+        
+</div>
+{% endblock %}
+

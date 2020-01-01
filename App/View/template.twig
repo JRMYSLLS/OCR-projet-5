@@ -6,28 +6,76 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./App/public/css/style.css">
+    <link rel="stylesheet" href="./public/css/style.css">
+    {% block header %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="./public/js/ajax.js"></script>
+    <script src="./public/js/main.js"></script>
+    <script type="text/javascript" src="tiny_mce/tiny_mce.js"></script>
+    <script src="https://cdn.tiny.cloud/1/gwket3rny82mwscjm9r85vgkatvwp1vlcf55g6gyb0enkvjy/tinymce/5/tinymce.min.js"></script>
+    <script>tinymce.init({ entity_encoding : "raw", selector:'#texte' });</script>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
     <title>welcome</title>
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    {%if session.flash is defined%}
+      {{getFlash(session.flash.message)}}
+    {%endif%}
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top nav-custom">
+
         <div class="container">
-          <a class="navbar-brand link-custom name" href="index.php?action=chapter">
-          <i class="fas fa-baby-carriage"></i>
-            DAD IN FORMATION
+
+          <a class="navbar-brand link-custom name" href="index.php?action=welcome">
+            <i class="fas fa-baby-carriage pink"></i>
+              <span class="blue">DAD IN</span><span class="pink"> FORMATION</span>
           </a>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">   
-                <a class="nav-link link-custom" href="index.php?action=login">Connexion / Inscription</a>
+            {%if session.pseudo is defined%}
+            <li class="nav-item"> 
+                <a class="nav-link link-custom" href="index.php?action=homeUser">Mon espace</a>
+              </li>  
+              <li class="nav-item"> 
+                <a class="nav-link link-custom" href="index.php?action=tuto">Tuto</a>
               </li>
+              <li class="nav-item"> 
+                <a class="nav-link link-custom" href="index.php?action=articles">Astuces</a>
+              </li>
+              <li class="nav-item"> 
+                <a class="nav-link link-custom" href="index.php?action=chatPage&amp;refresh=auto">chat</a>
+              </li>
+              <li class="nav-item"> 
+                <a class="nav-link link-custom" href="index.php?action=deconnexion">déconnexion</a>
+              </li>
+              {%else%}
+              <li class="nav-item">
+                <a class="nav-link link-custom" href="index.php?action=connectionView">Connexion</a>
+              </li>
+              <li class="nav-item">   
+                <a class="nav-link link-custom" href="index.php?action=registrationView">Inscription</a>
+              </li>
+              {%endif%}
             </ul>
+
           </div>
+
         </div>
+
     </nav>
 
     {% block content %}{% endblock %}
 
 </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </html>

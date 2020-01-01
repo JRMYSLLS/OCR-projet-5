@@ -1,0 +1,28 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+    <div class="container margin-menu-custom">
+        
+        <div class="row">
+            <div class="col-md-6">
+            <p>Pour réinitialiser le mot de passe de votre compte, <br> saisissez votre adresse mail et allez consultez votre boite. </p>
+        </div>
+        <div class="col-md-6">
+            <form action="index.php?action=resetpassword" method="POST" class="mx-auto">
+                <div class="form-group">
+                    <label for="mail">
+                        Entrer votre mail
+                    </label>
+                    <input type="email" class="form-control" name="mail">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Modifier" name="resetpassword" class="form-control">
+                </div>
+                
+            </form>
+        </div>
+        </div>
+        
+    </div>
+     
+{% endblock %}

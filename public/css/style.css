@@ -99,6 +99,59 @@ rose #eca7cb
         word-wrap: break-word;
     }
 
+    .delete:hover{
+        color: #eca7cb;
+    }
+
+    .delete{
+        font-size: 1.3em;
+    }
+
     .alert-custom{
         z-index: 1031;
+    }
+
+    .barre{
+        height: 50px;
+    }
+
+    .margin-0{
+        margin: 0;
+    }
+
+    .title_td{
+        width: 20%;
+    }
+
+    .nav-custom{
+        position: fixed !important;
+    }
+
+    .chat-content{
+        height: 60vh;
+        box-shadow: -5px -5px 10px #eca7cb;
+        border-radius: 10px 10px 10px 10px;
+        border-top: #eca7cb 5px solid;
+        overflow: scroll;
+    }
+
+    textarea[name=messageChat]{
+        resize: none;
+        width: 100%;
+    }
+
+    #title {
+        margin-bottom: 10px;
+    }
+
+    #texte {
+        height: 60vh;
+      }
+
+    @media all and (max-width: 992px)  {
+
+        .nav-custom{
+            background-color: white;
+        }
+
     }
