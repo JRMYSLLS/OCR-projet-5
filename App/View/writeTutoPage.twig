@@ -1,0 +1,18 @@
+{% extends 'template.twig' %}
+
+{% block header %}
+<title>DAD IN FORMATION | write tuto</title>
+<meta name="description" content="Retrouver les tutoriels des papas en cour de formation publier par notre equipe">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container margin-menu-custom">
+    <form name="newTuto" id="formulaire" action="index.php?action=publishTuto" method="post">
+        <input id ="title" type="text" name="title" placeholder="Titre">
+        <textarea id="texte" name="content" ></textarea>
+        <input type="submit" name="newTuto" class="btn blue-bg white-txt" value="publier">
+    </form>
+    </div>
+     
+{% endblock %}

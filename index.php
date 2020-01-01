@@ -7,6 +7,7 @@ use App\Controller\AstucesController;
 use App\Controller\ChatController;
 use App\Controller\Controller;
 use App\Controller\MembersController;
+use App\Controller\TutoController;
 
 // router
 
@@ -15,6 +16,7 @@ $action ='';
 $member = new MembersController();
 $astuces = new AstucesController();
 $chat = new ChatController();
+$tuto = new TutoController();
 
 if(isset($_GET['action'])){
     $action = $_GET['action'];
@@ -104,6 +106,18 @@ try{
 
         case 'chatMessage':
             $chat->sendMessage();
+        break;
+
+        case 'tuto':
+            $tuto->tutoPage();
+        break;
+
+        case 'writeTutoPage':
+            $tuto->writeTutoPage();
+        break;
+
+        case 'publishTuto':
+            $tuto->newTuto();
         break;
 
         default:
