@@ -108,8 +108,8 @@ try{
             $chat->sendMessage();
         break;
 
-        case 'tuto':
-            $tuto->tutoPage();
+        case 'tutos':
+            $tuto->tutosPage();
         break;
 
         case 'writeTutoPage':
@@ -118,6 +118,10 @@ try{
 
         case 'publishTuto':
             $tuto->newTuto();
+        break;
+
+        case 'tuto':
+            $tuto->tutoPage();
         break;
 
         default:

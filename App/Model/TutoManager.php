@@ -4,7 +4,7 @@ require_once('App/Model/Manager.php');
 
 class TutoManager extends Manager{
 
-    function getTuto(){
+    function getTutos(){
       $db = $this->dbconnect();
       $req = $db->prepare('SELECT *
                            FROM Tuto
@@ -14,10 +14,20 @@ class TutoManager extends Manager{
       return $results;
     }
 
-    function newTuto($pseudo,$title,$content){
+    function getTuto($id){
       $db = $this->dbconnect();
-      $req = $db->prepare('INSERT INTO Tuto(author,title,content) VALUES(?,?,?)');
-      $affectedLine = $req->execute(array($pseudo,$title,$content));
+      $req = $db->prepare('SELECT *
+                            FROM tuto WHERE id = ?');
+      $req->execute(array($id));
+      $affectedLine = $req->fetch();
+
+      return $affectedLine;
+    }
+
+    function newTuto($pseudo,$title,$presentation,$content){
+      $db = $this->dbconnect();
+      $req = $db->prepare('INSERT INTO Tuto(author,title,presentation,content) VALUES(?,?,?,?)');
+      $affectedLine = $req->execute(array($pseudo,$title,$presentation,$content));
 
       return $affectedLine;
     }
