@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Manager\TutoManager;
-require_once('App/Model/TutoManager.php');
+use App\Model\TutoManager;
 
 class TutoController extends Controller{
 
@@ -25,9 +24,11 @@ class TutoController extends Controller{
             
             $id = intval($_GET['id']);
             $getTuto = $tuto->getTuto($id);
+            $check = $tuto->checkValidate($id,$_SESSION['id']);
             $this->loadView();
             echo $this->twig->render('tutoPage.twig',[
-            'tuto' => $getTuto
+            'tuto' => $getTuto,
+            'check' => $check
             ]);
         }else{
             echo 'page introuvable';
@@ -54,7 +55,7 @@ class TutoController extends Controller{
 
                 if(!empty($title) && !empty($content) && !empty($presentation)){
 
-                    $tuto->newTuto($_SESSION['pseudo'],$title,$presentation,$content);
+                    $tuto->newTuto($_SESSION['pseudo'],$_SESSION['id'],$title,$presentation,$content);
                     echo 'publier';
 
                 }else{
@@ -68,4 +69,98 @@ class TutoController extends Controller{
             echo 'prout';
         }
     }
+
+    public function deleteTuto(){
+        $this->isAdmin();
+        $tuto = new TutoManager;
+        if(isset($_GET['id']) && !empty($_GET['id'])){
+            $id = intval($_GET['id']);
+            $tuto->deleteTuto($id);
+            \header('location: index.php?action=homeUser');
+        }
+    }
+
+    public function editTutoPage(){
+        $this->isAdmin();
+
+        if(isset($_GET['id']) && !empty($_GET['id'])){
+            $id = intval($_GET['id']);
+            $tuto = new TutoManager;
+            $getTuto = $tuto->getTuto($id);
+
+            $this->loadView();
+            echo $this->twig->render('editTuto.twig',[
+                'tuto' => $getTuto
+            ]);
+        }
+        
+    }
+
+    public function editTuto(){
+        $this->isAdmin();
+        $tuto = new TutoManager;
+
+        if(isset($_GET['id']) && !empty($_GET['id'])){
+            $id = intval($_GET['id']);
+
+            if(isset($_POST['editTuto'])){
+
+                if(!empty($_POST['title']) && !empty($_POST['presentation']) && !empty($_POST['content'])){
+
+                    $title = $_POST['title'];
+                    $presentation = $_POST['presentation'];
+                    $content = $_POST['content'];
+
+                    $tuto->editTuto($title,$presentation,$content,$id);
+                    \header('location: index.php?action=homeUser');
+
+                }else{
+                echo 'tout n\'est pas remplie';
+
+                }
+            }
+        }else{
+            echo 'marche pas';
+        }
+    }
+
+    public function validateTuto(){
+        $this->isConnect();
+        $tuto = new TutoManager();
+
+        if(isset($_GET['action'], $_GET['id_tuto'])){
+            $idAstuce = $_GET['id_tuto'];
+            $idMembre = $_SESSION['id'];
+
+            if($tuto->tutoExiste($idAstuce)==1){
+
+                if($tuto->checkValidate($idAstuce,$idMembre)==0){
+
+                        $tuto->validateTuto($idAstuce,$idMembre);
+                        $this->setFlash('Tuto Validé','success');
+                        header('location: index.php?action=tuto&id='.$idAstuce.'');
+                        exit (0);
+                    
+                }else{
+                    $this->setFlash('Vous avez deja valider ce tuto');
+                    header('location: index.php?action=tutos');
+                }      
+                
+            }else{
+                $this->setFlash('Ce tuto n\'existe pas');
+                header('location: index.php?action=tutos');
+            }
+            header('location: index.php?action=tutos');
+        }
+        
+    }
+
+    public function deleteTutoForUser(){
+        $this->isConnect();
+        $astuce = new TutoManager();
+        $astuce->deleteValidateTuto($_GET['idtuto'],$_GET['iduser']);
+        header('location: index.php?action=homeUser');
+    }
+
+
 }

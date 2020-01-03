@@ -13,7 +13,7 @@
 
     <div class="container mt-5">
             <h4 class="name pink">Mes astuces</h4>
-            <a href="index.php?action=writeAstuce"><i class="fas fa-pen"></i> écire une astuce</a>
+            <a href="index.php?action=writeAstuce"><i class="fas fa-pen"></i> écrire une astuce</a>
             <div class="row">
                 {% if userCount == 0 %}
                 <div class="col-12">
@@ -71,20 +71,82 @@
                              {% endfor %}
                          </tbody>
                     </table>
-                
-            </div>
-            
+                </div>
+                {% endif %} 
         </div>
-        {% endif %}
         
     </div>
 
+    {% if session.isAdmin is defined %}
     <div class="container mt-5">
-            <h4 class="name pink"><i class="fas fa-graduation-cap blue"></i> Tuto</h4>
-            {% if session.isAdmin is defined %}
+            
+            <h4 class="name pink">Mes Tutos</h4>
             <a href="index.php?action=writeTutoPage"><i class="fas fa-pen"></i> écrire un tuto</a>
-            {% endif %}
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered mt-5">
+                        <thead class="blue-bg">
+                            <tr>
+                                <th class="white-txt">Titre</th>
+                                <th class="white-txt">Astuces</th>
+                                <th class="white-txt">Modifier</th>
+                                <th class="white-txt">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tuto in tutos %}
+                            <tr>
+                                <td class="title_td">{{tuto.title}}</td>
+                                <td>{{tuto.presentation}}</td>
+                                <td><a href="index.php?action=editTutoPage&amp;id={{tuto.id}}"><i class="far fa-edit blue "></i></a></td>
+                                <td><a href="index.php?action=deleteTuto&amp;id={{tuto.id}}"><i class="fas fa-times blue delete"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                                
+                </div>
+            </div>
+            
+            
     </div>
+    {% endif %}
+
+    <div class="container mt-5">
+        <h4 class="name pink"><i class="fas fa-graduation-cap blue"></i> Tutos sauvegardés</h4>
+        <div class="row">
+                {% if countTuto == 0 %}
+                <div class="col-12">
+                    <p class="mb-0">Vous n'avez pas encore sauvegardé de tuto.</p>
+                    <a href="index.php?action=tutos">Voir les tutos</a>
+                </div>
+                {% else %}
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered mt-5">
+                    <thead class="blue-bg">
+                        <tr>
+                            <th class="white-txt">Titre</th>
+                            <th class="white-txt">Presentation</th>
+                            <th class="white-txt">Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tuto in validateTuto %}
+                        <tr>
+                            <td class="title_td">{{tuto.title}}</td>
+                            <td class="w-100"><a href="index.php?action=tuto&amp;id={{tuto.id}}">{{tuto.presentation}}</a></td>
+                            <td><a href="index.php?action=deleteTutoUser&amp;idtuto={{tuto.id}}&amp;iduser={{session.id}}"><i class="fas fa-times blue delete"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                            
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    
     
     {% endblock %}
 

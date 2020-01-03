@@ -124,6 +124,26 @@ try{
             $tuto->tutoPage();
         break;
 
+        case 'editTutoPage':
+            $tuto->editTutoPage();
+        break;
+
+        case 'deleteTuto':
+            $tuto->deleteTuto();
+        break;
+
+        case 'editTuto':
+            $tuto->editTuto();
+        break;
+
+        case 'validateTuto':
+            $tuto->validateTuto();
+        break;
+
+        case 'deleteTutoUser':
+            $tuto->deleteTutoForUser();
+        break;
+
         default:
             $member->accueil();
     }

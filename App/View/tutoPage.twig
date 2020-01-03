@@ -1,7 +1,7 @@
 {% extends 'template.twig' %}
 
 {% block header %}
-<title>DAD IN FORMATION | tuto</title>
+<title>DAD IN FORMATION | {{ tuto.title }}</title>
 <meta name="description" content="Retrouver les tutoriels des papas en cour de formation publier par notre equipe">
 {% endblock %}
 
@@ -9,6 +9,15 @@
  <div class="container margin-menu-custom">
         <h3 class="blue mb-5">{{ tuto.title }}</h3>
        {{ tuto.content | raw }}
+       {{ tuto.id_membre }}
+      <div class="mt-5 mb-5">
+      {%if check == 1 %}
+            <p class="btn blue-bg white-txt">Tuto sauvegarder</p>
+      {%else%}
+            <a href="index.php?action=validateTuto&amp;id_tuto={{tuto.id}}" class="btn pink-bg white-txt justify-self-start">Sauvegarder le tuto</a>
+      {%endif%}  
+      </div>
+       
  </div>
      
 {% endblock %}
