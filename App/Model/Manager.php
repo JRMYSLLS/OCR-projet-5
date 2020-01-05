@@ -1,5 +1,5 @@
 <?php
-namespace App\Manager;
+namespace App\Model;
 
 class Manager
 {
@@ -11,7 +11,7 @@ class Manager
         $db = new \PDO('mysql:host=localhost;dbname=dad_in_formation;charset=utf8', 'root', 'root');
         return $db;
       }
-        catch(Exception $e)
+        catch(\Exception $e)
       {
         die('Erreur : '.$e->getMessage());
       }

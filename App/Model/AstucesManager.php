@@ -1,6 +1,5 @@
 <?php
-namespace App\Manager;
-require_once('App/Model/Manager.php');
+namespace App\Model;
 
 class AstucesManager extends Manager{
 
@@ -99,6 +98,7 @@ class AstucesManager extends Manager{
       $results = $req->fetchAll();
       return $results;
     }
+    
     function countAstuces(){
       $db = $this->dbconnect();
       $req = $db->prepare('SELECT id FROM Astuces');

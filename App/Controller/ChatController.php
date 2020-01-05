@@ -1,16 +1,12 @@
 <?php
 namespace App\Controller;
 
-use App\Manager\ChatManager;
-
-require_once('App/Model/ChatManager.php');
+use App\Model\ChatManager;
 
 class ChatController extends Controller{
 
     public function chatPage(){
         $this->isConnect();
-        $chat = new ChatManager();
-        //$messages = $chat->getMessage();
         $this->loadView();
         echo $this->twig->render('chat.twig');
     }
@@ -33,11 +29,13 @@ class ChatController extends Controller{
 
                 if(!empty($message)){
 
+                    $message = htmlspecialchars($message);
                     $chat->postMessage($_SESSION['pseudo'],$message);
                     header('location: index.php?action=chatPage');
 
                 }else{
-                    echo'le message est vide';
+                    $this->setFlash('Vous n\'avez pas écris de message');
+                    header('location: index.php?action=chatPage');
                 }
             }
         }

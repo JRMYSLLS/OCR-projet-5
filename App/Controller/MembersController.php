@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Manager\MembersManager;
-require_once('App/Model/MembersManager.php');
+use App\Model\MembersManager;
 
 class MembersController extends Controller{
 
@@ -104,7 +103,7 @@ class MembersController extends Controller{
                                 <html>
                                     <body>
                                         <div>
-                                            <p>Pour valider votre inscription, cliquer sur le <a href="http://localhost:8888/projet_5/dad_in_formation/OCR-projet-5/index.php?action=confirmation&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
+                                            <p>Pour valider votre inscription, cliquer sur le <a href="dadinformation.salles-jeremie.fr/index.php?action=confirmation&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
                                         </div>
                                     <body>
                                 </html>
@@ -112,6 +111,7 @@ class MembersController extends Controller{
                                 $this->sendMail($mail,$messageMail);
                                 $member->registration($pseudo,$mail,$password,$confirmKey);
                                 header('location: index.php?action=welcome');
+                                $this->setFlash('Votre inscription à etais prise en compte, consultez vos mail','success');
                                 exit(0);
 
                             }else{
@@ -149,8 +149,12 @@ class MembersController extends Controller{
                     if($verify['confirm'] == 1){
                         $_SESSION['pseudo'] = $verify['pseudo'];
                         $_SESSION['id'] = $verify['id'];
+
+                        if($verify['status_membres'] == 1){
+                            $_SESSION['isAdmin'] = true ;
+                        }
                         
-                        //$this->setFlash('Vous etes connecté','success');
+                        $this->setFlash('Vous etes connecté','success');
                         header('location: index.php?action=homeUser');
                         exit(0);
                     }
@@ -188,7 +192,7 @@ class MembersController extends Controller{
                         <html>
                             <body>
                                 <div>
-                                    <p>Pour modifier votre mot de passe, cliquer sur le <a href="http://localhost:8888/projet_5/dad_in_formation/OCR-projet-5/index.php?action=resetPage&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
+                                    <p>Pour modifier votre mot de passe, cliquer sur le <a href="dadinformation.salles-jeremie.fr/index.php?action=resetPage&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
                                 </div>
                             <body>
                         </html>

@@ -1,24 +1,33 @@
 <?php
 namespace App\Controller;
 
-use App\Manager\AstucesManager;
-require_once('App/Model/AstucesManager.php');
+use App\Model\AstucesManager;
+use App\Model\TutoManager;
 
 class AstucesController extends Controller{
 
     public function homeUser(){
         $this->isConnect();
         $astuces = new AstucesManager();
+        $tuto = new TutoManager();
         $astuceByUser = $astuces->getAstuceByUser($_SESSION['pseudo']);
         $countAstuceUser = $astuces->countAstucesForUser($_SESSION['id']);
         $countAstuceByUser = $astuces->countAstucesByUser($_SESSION['pseudo']);
-        $user=$astuces->getAstuceForUser($_SESSION['id']);
+        $user = $astuces->getAstuceForUser($_SESSION['id']);
+        $getTutos = $tuto->getTutoByAuthor($_SESSION['id']);
+        $getValidateTuto = $tuto->getTutoForUser($_SESSION['id']);
+        $countTuto = $tuto->countTutoForUser($_SESSION['id']);
 
         $this->loadView();
         echo $this->twig->render('homeUser.twig',['user'=> $user,
         'count'=> $countAstuceUser,
         'astuceUser'=> $astuceByUser,
-        'userCount'=> $countAstuceByUser]);
+        'userCount'=> $countAstuceByUser,
+        'tutos' => $getTutos,
+        'validateTuto' => $getValidateTuto,
+        'countTuto' => $countTuto
+        ]);
+        
     }
 
     public function getAstuces(){
@@ -27,15 +36,17 @@ class AstucesController extends Controller{
         $numberOfAstuces = $articles->countAstuces();
 
         // Pagination
-        if(isset($_GET['page']) && !empty($_GET['page'])){
-            $_GET['page'] = intval($_GET['page']);
-            $currentPage = $_GET['page'];
+        if(isset($_GET['page']) && $_GET['page']>0){
+            $currentPage = intval($_GET['page']);
         }else{
             $currentPage = 1;
         }
 
         $astucePerPage = 4;
         $numberOfPage = ceil($numberOfAstuces/$astucePerPage);
+        if($currentPage>$numberOfPage){
+            $currentPage=$numberOfPage;
+        }
         $begin = ($currentPage-1)*$astucePerPage;
 
         $test = $articles->getAstuces($_SESSION['id'],$begin,$astucePerPage);
@@ -117,7 +128,9 @@ class AstucesController extends Controller{
                     $astuce->newAstuce($title,$_SESSION['pseudo'],$content);
                     \header('location: index.php?action=homeUser');
                 }else{
-                    echo 'vide';
+                    $this->setFlash('Vous devez remplir tout les champs.');
+                    \header('location: index.php?action=writeAstuce');
+
                 }
             }
         }

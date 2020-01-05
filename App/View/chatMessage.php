@@ -1,7 +1,5 @@
 <?php foreach ($messages as $message):?>
-    
-    <p><?=$message['membre']?> à <?=$message['dtime']?></p>
-    <p><?=$message['content']?></p>
-
+    <div class=" container">
+        <p>[ <?=$message['membre']?> à <?=$message['dtime']?> ] - <?=$message['content']?></p>
+    </div>
 <?php endforeach;?>
-    

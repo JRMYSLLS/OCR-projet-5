@@ -1,6 +1,5 @@
 <?php
-namespace App\Manager;
-require_once('App/Model/Manager.php');
+namespace App\Model;
 
 class MembersManager extends Manager{
     

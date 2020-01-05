@@ -31,7 +31,8 @@ class TutoController extends Controller{
             'check' => $check
             ]);
         }else{
-            echo 'page introuvable';
+            $this->setFlash('Ce tuto est introuvable');
+            header('location: index.php?action=tutos');
         }
     }
 
@@ -57,17 +58,21 @@ class TutoController extends Controller{
 
                     $tuto->newTuto($_SESSION['pseudo'],$_SESSION['id'],$title,$presentation,$content);
                     echo 'publier';
+                    exit (0);
 
                 }else{
-                    echo 'variable vide';
+                    $this->setFlash('Vous devez remplir tout les champs.');
                 }
 
             }else{
-                echo 'pas de variable';
+                $this->setFlash('Erreur de champs.');
             }
+
         }else{
-            echo 'prout';
+            $this->setFlash('Erreur de avec le formulaire.');
         }
+
+        header('location: index.php?action=homeUser');
     }
 
     public function deleteTuto(){
@@ -113,14 +118,15 @@ class TutoController extends Controller{
 
                     $tuto->editTuto($title,$presentation,$content,$id);
                     \header('location: index.php?action=homeUser');
+                    exit (0);
 
                 }else{
-                echo 'tout n\'est pas remplie';
+                $this->setFlash('Vous devez remplir tout les champs');
 
                 }
             }
         }else{
-            echo 'marche pas';
+            $this->setFlash('Erreur de champs');
         }
     }
 
