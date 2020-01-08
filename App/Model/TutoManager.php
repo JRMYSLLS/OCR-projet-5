@@ -16,7 +16,7 @@ class TutoManager extends Manager{
     function getTuto($id){
       $db = $this->dbconnect();
       $req = $db->prepare('SELECT *
-                            FROM tuto WHERE id = ?');
+                            FROM Tuto WHERE id = ?');
       $req->execute(array($id));
       $affectedLine = $req->fetch();
 
@@ -25,25 +25,25 @@ class TutoManager extends Manager{
 
     function getTutoByAuthor($id){
       $db = $this->dbconnect();
-      $req = $db->prepare('SELECT * FROM tuto WHERE id_author = ? ORDER BY id DESC');
+      $req = $db->prepare('SELECT * FROM Tuto WHERE id_author = ? ORDER BY id DESC');
       $req->execute(array($id));
       $affectedLine = $req->fetchAll();
 
       return $affectedLine;
     }
 
-    function newTuto($pseudo,$idAstuce,$title,$presentation,$content){
+    function newTuto($pseudo,$idAstuce,$title,$image,$presentation,$content){
       $db = $this->dbconnect();
-      $req = $db->prepare('INSERT INTO Tuto(author,id_author,title,presentation,content) VALUES(?,?,?,?,?)');
-      $affectedLine = $req->execute(array($pseudo,$idAstuce,$title,$presentation,$content));
+      $req = $db->prepare('INSERT INTO Tuto(author,id_author,title,image_link,presentation,content) VALUES(?,?,?,?,?,?)');
+      $affectedLine = $req->execute(array($pseudo,$idAstuce,$title,$image,$presentation,$content));
 
       return $affectedLine;
     }
 
-    function editTuto($title,$presentation,$content,$id){
+    function editTuto($title,$presentation,$image,$content,$id){
       $db = $this->dbconnect();
-      $req = $db->prepare('UPDATE Tuto SET title=?,presentation=?,content=? WHERE id=?');
-      $affectedLine = $req->execute(array($title,$presentation,$content,$id));
+      $req = $db->prepare('UPDATE Tuto SET title=?,image_link=?,presentation=?,content=? WHERE id=?');
+      $affectedLine = $req->execute(array($title,$presentation,$image,$content,$id));
 
       return $affectedLine;
     }
@@ -59,7 +59,7 @@ class TutoManager extends Manager{
     function getTutoForUser($id){
       $db = $this->dbconnect();
       $req = $db->prepare('SELECT Tuto.id,title,presentation,id_tuto,id_membre FROM Tuto
-                          LEFT JOIN Validate_tuto on tuto.id = Validate_tuto.id_tuto
+                          LEFT JOIN Validate_tuto on Tuto.id = Validate_tuto.id_tuto
                           
                           WHERE id_membre = ?
                           ORDER BY id DESC');

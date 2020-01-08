@@ -8,8 +8,10 @@
 
 {% block content %}
     <div class="container margin-menu-custom">
-        <form name="newTuto" id="formulaire" action="index.php?action=editTuto&amp;id={{tuto.id}}" method="post">
+        <form name="newTuto" id="formulaire" action="index.php?action=editTuto&amp;id={{tuto.id}}" method="post" enctype="multipart/form-data">
             <input id ="title" type="text" name="title" value="{{tuto.title}}">
+            <label for="background">Image d'accueil :</label>
+            <input type="file" name="background" value="{{tuto.image_link}}">
             <textarea id="prez" name="presentation">{{ tuto.presentation }}</textarea>
             <textarea id="texte" name="content" >{{ tuto.content }}</textarea>
             <input type="submit" name="editTuto" class="btn blue-bg white-txt" value="publier">
