@@ -62,6 +62,7 @@ class AstucesController extends Controller{
         $this->isConnect();
         $astuce = new AstucesManager();
         $astuce->deleteAstuceForUser($_GET['idastuce'],$_GET['iduser']);
+        $this->setFlash('Astuce supprimer','success');
         header('location: index.php?action=homeUser');
     }
 
@@ -72,6 +73,7 @@ class AstucesController extends Controller{
         if(isset($_GET['idastuce']) && isset($_GET['iduser'])){
             $astuce->deleteAstuceByUser($_GET['idastuce'],$_GET['iduser']);
             $astuce->deleteValidateAstuce($_GET['idastuce']);
+            $this->setFlash('Astuce supprimer','success');
         }
         header('location: index.php?action=homeUser');
     }
@@ -101,7 +103,7 @@ class AstucesController extends Controller{
                 $this->setFlash('l\'astuce n\'existe pas');
                 header('location: index.php?action=articles');
             }
-            header('location: index.php?action=articles');
+            header('location: index.php?action=articles&page='.$_GET['page']);
         }
         
     }
@@ -126,6 +128,7 @@ class AstucesController extends Controller{
                     $title = htmlspecialchars($title);
                     $content = htmlspecialchars($content);
                     $astuce->newAstuce($title,$_SESSION['pseudo'],$content);
+                    $this->setFlash('Astuce publier','success');
                     \header('location: index.php?action=homeUser');
                 }else{
                     $this->setFlash('Vous devez remplir tout les champs.');
@@ -134,6 +137,43 @@ class AstucesController extends Controller{
                 }
             }
         }
+    }
+
+    public function signalAstuce(){
+        $this->isConnect();
+        $astuce = new AstucesManager;
+
+        if(isset($_GET['idAstuce'])){
+
+            if(!empty($_GET['idAstuce'])){
+
+                $id = intval($_GET['idAstuce']);
+                $astuce->signalAstuce($id);
+
+            }else{
+                $this->setFlash('Erreur lors du signalement');
+            }
+        }
+        \header('location: index.php?action=articles&page='.$_GET['page']);
+    }
+
+    public function deleteAstuce(){
+        $this->isAdmin();
+        $astuce = new AstucesManager;
+        if(!empty($_GET['id'])){
+            $astuce->deleteAstuce($_GET['id']);
+            $astuce->deleteValidateAstuce($_GET['id']);
+        }
+        \header('location: index.php?action=articles&page='.$_GET['page']);
+    }
+
+    public function confirmAstuce(){
+        $this->isAdmin();
+        $astuce = new AstucesManager;
+        if(!empty($_GET['id'])){
+            $astuce->confirmAstuce($_GET['id']);
+        }
+        \header('location: index.php?action=articles&page='.$_GET['page']);
     }
 
 }

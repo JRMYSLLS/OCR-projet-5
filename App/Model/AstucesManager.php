@@ -5,7 +5,7 @@ class AstucesManager extends Manager{
 
     function getAstuces($id,$begin,$astucePerPage){
       $db = $this->dbconnect();
-      $req = $db->prepare('SELECT Astuces.id,title,content,id_astuce,id_membre FROM Astuces
+      $req = $db->prepare('SELECT Astuces.id,title,content,id_astuce,id_membre,signaled FROM Astuces
       LEFT JOIN Validate_astuce on Astuces.id = Validate_astuce.id_astuce
       
       AND id_membre = ?
@@ -127,4 +127,29 @@ class AstucesManager extends Manager{
       $results = $req->rowCount();
       return $results;
     }
+
+    function signalAstuce($id){
+      $db = $this->dbconnect();
+      $req = $db->prepare('UPDATE Astuces SET signaled=1 WHERE id=?');
+      $affectedLine = $req->execute(array($id));
+
+      return $affectedLine;
+    }
+
+    function confirmAstuce($id){
+      $db = $this->dbconnect();
+      $req = $db->prepare('UPDATE Astuces SET signaled=2 WHERE id=?');
+      $affectedLine = $req->execute(array($id));
+
+      return $affectedLine;
+    }
+
+    function deleteAstuce($id){
+      $db = $this->dbconnect();
+      $req = $db->prepare('DELETE FROM Astuces WHERE id=?');
+      $affectedLine = $req->execute(array($id));
+
+      return $affectedLine;
+    }
+
 }
