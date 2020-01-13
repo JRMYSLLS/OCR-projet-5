@@ -96,6 +96,18 @@ try{
             $astuces->deleteAstuceByUser();
         break;
 
+        case 'signalAstuce':
+            $astuces->signalAstuce();
+        break;
+
+        case 'deleteAstuce':
+            $astuces->deleteAstuce();
+        break;
+
+        case 'confirmAstuce':
+            $astuces->confirmAstuce();
+        break;
+
         case 'chatPage':
             $chat->chatPage();
         break;

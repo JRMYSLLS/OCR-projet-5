@@ -13,6 +13,16 @@ class TutoManager extends Manager{
       return $results;
     }
 
+    function getTutosHome(){
+      $db = $this->dbconnect();
+      $req = $db->prepare('SELECT *
+                           FROM Tuto
+                           ORDER BY id ASC LIMIT 2');
+      $req->execute(array());
+      $results = $req->fetchAll();
+      return $results;
+    }
+
     function getTuto($id){
       $db = $this->dbconnect();
       $req = $db->prepare('SELECT *

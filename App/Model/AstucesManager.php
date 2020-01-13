@@ -16,6 +16,14 @@ class AstucesManager extends Manager{
       return $results;
     }
 
+    function getAstucesHome(){
+      $db = $this->dbconnect();
+      $req = $db->prepare('SELECT * FROM Astuces ORDER BY id ASC LIMIT 2');
+      $req->execute(array());
+      $results = $req->fetchAll();
+      return $results;
+    }
+
     function newAstuce($title,$author,$content){
       $db = $this->dbconnect();
       $req = $db->prepare('INSERT INTO Astuces(title,author,content) VALUES (?,?,?)');

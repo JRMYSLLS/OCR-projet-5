@@ -17,27 +17,42 @@
             <div class="card h-100 text-center">
                 <div class="card-header blue-bg">
                 <h5 class="card-title white-txt">{{article.title}} </h5>
-                <i class="fas fa-exclamation-circle"></i>       
+                {% if article.signaled == 0 %}
+                <a href="index.php?action=signalAstuce&amp;idAstuce={{article.id}}&amp;page={{_get.page}}" data-toggle="tooltip" data-placement="top" title="Signaler"><i class="fas fa-exclamation-circle white-txt"></i></a>
+                {% elseif article.signaled == 1 %}   
+                <i class="fas fa-exclamation-circle red_txt"></i>
+                {% else %}
+                <i class="fas fa-check-circle green_txt"></i>
+                {% endif %}
                 </div>
                 <div class="card-body d-flex flex-column justify-content-between">
                     
-                    <p class="card-text">{{article.content}}</p>
+                    <p class="card-text h-100">{{article.content}}</p>
                     {%if article.id_membre == session.id%}
-                    <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}" class="btn blue-bg white-txt">Astuce validée</a>
+                    <p href="" class="btn blue-bg white-txt">Astuce sauvegardée</p>
                     {%else%}
-                    <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}" class="btn pink-bg white-txt justify-self-start">Valider l'astuce</a>
+                    <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}&amp;page={{_get.page}}" class="btn pink-bg white-txt justify-self-start">Sauvegarder l'astuce</a>
                     {%endif%}
+                    {% if session.isAdmin is defined %}
+                    <div class="mt-3">
+                        <a href="index.php?action=confirmAstuce&amp;id={{article.id}}&amp;page={{_get.page}}" class="btn blue-bg white-txt">Valider</a>
+                        <a href="index.php?action=deleteAstuce&amp;id={{article.id}}&amp;page={{_get.page}}" class="btn blue-bg white-txt"> Supprimer</a>
+                    </div>
+                    {% endif %}
                 </div>
                 
             </div>
         </div>
         {% endfor %}
     </div>
-    <div class="row mt-5 d-flex justify-content-center">
-        {% for i in 1..test%}
-        <p><a href="index.php?action=articles&amp;page={{ i }}">{{ i }}</a>&nbsp;&nbsp;</p>
-        {% endfor %}
-    </div>
+
+    <nav aria-label="..." class="row mt-5 d-flex justify-content-center">
+        <ul class="pagination">
+            {% for i in 1..test%}
+          <li class="page-item {% if i == _get.page %}active{% endif %}"><a class="page-link" href="index.php?action=articles&amp;page={{ i }}">{{ i }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
         
 </div>
 {% endblock %}

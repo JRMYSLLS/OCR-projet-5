@@ -9,22 +9,22 @@
                 vous pouvez vous connectez</p>
         </div>
         <div class="col-md-6">
-            <form action="index.php?action=login" method="POST" class="mx-auto">
+            <form action="index.php?action=login" method="POST" class="mx-auto" id="myform">
                 <div class="form-group">
                     <label for="mail">
                         Entrer votre mail
                     </label>
-                    <input type="email" class="form-control" name="mail">
+                    <input type="email" class="form-control" name="mail" id="mailConnection">
                 </div>
                 <div class="form-group">
                     <label for="password">
                         Puis votre mot de passe
                     </label>
-                    <input type="password" class="form-control" name="password">
+                    <input type="password" class="form-control" name="password" id="mdpConnection">
                     <a href="index.php?action=resetPassView">mot de passe oublié?</a>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Me connecter" name="connection" class="form-control">
+                    <input type="submit" value="Me connecter" name="connection" id="connection" class="form-control">
                 </div>
                 
             </form>

@@ -91,7 +91,7 @@ class AstucesController extends Controller{
                 if($astuce->checkValidate($idAstuce,$idMembre)==0){
 
                         $astuce->validateAstuce($idAstuce,$idMembre);
-                        $this->setFlash('Astuce Validé');
+                        $this->setFlash('Astuce sauvegarder','success');
                         header('location: index.php?action=articles');
                     
                 }else{
@@ -111,7 +111,7 @@ class AstucesController extends Controller{
     public function writeAstuce(){
         $this->isConnect();
         $this->loadView();
-        echo $this->twig->render('user/writeAstuce.twig');
+        echo $this->twig->render('writeAstuce.twig');
     }
 
     public function addAstuce(){

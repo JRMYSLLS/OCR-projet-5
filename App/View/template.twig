@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./public/css/style.css">
     {% block header %}{% endblock %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="./public/js/ajax.js"></script>
     <script src="./public/js/main.js"></script>
@@ -51,7 +52,7 @@
                 <a class="nav-link link-custom" href="index.php?action=tutos">Tuto</a>
               </li>
               <li class="nav-item"> 
-                <a class="nav-link link-custom" href="index.php?action=articles">Astuces</a>
+                <a class="nav-link link-custom" href="index.php?action=articles&amp;page=1">Astuces</a>
               </li>
               <li class="nav-item"> 
                 <a class="nav-link link-custom" href="index.php?action=chatPage&amp;refresh=auto">chat</a>

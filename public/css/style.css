@@ -44,6 +44,14 @@ rose #eca7cb
       position: relative;
     }
 
+    .image-background{
+      height: auto;
+      width: 100%;
+      background-attachment: scroll;
+      background-size: cover;
+      position: relative;
+    }
+
     .site-name{
         font-family: 'capture_itregular';
     }
@@ -53,7 +61,7 @@ rose #eca7cb
     }
 
     .blue-bg{
-        background-color: #9abcdd ;
+        background-color: #9abcdd !important;
     }
 
     .pink{
@@ -66,6 +74,14 @@ rose #eca7cb
 
     .white-txt{
         color: white;
+    }
+
+    .green_txt{
+        color: green;
+    }
+
+    .red_txt{
+        color: red;
     }
 
     .overlay{
@@ -129,15 +145,32 @@ rose #eca7cb
 
     .chat-content{
         height: 60vh;
-        box-shadow: -5px -5px 10px #eca7cb;
-        border-radius: 10px 10px 10px 10px;
-        border-top: #eca7cb 5px solid;
         overflow: scroll;
     }
 
     textarea[name=messageChat]{
         resize: none;
         width: 100%;
+    }
+
+    #prez{
+        resize: none;
+        width: 100%;
+    }
+
+    .tuto-style{
+        text-decoration: none !important;
+        color: dimgray;
+    }
+
+    .tuto-style:hover{
+        text-decoration: none;
+        color: dimgray;
+    }
+
+    .box-tuto:hover{
+        transition: 1s;
+        box-shadow:  10px 5px 5px dimgray;
     }
 
     #title {
@@ -147,6 +180,13 @@ rose #eca7cb
     #texte {
         height: 60vh;
       }
+
+      .alert{
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
 
     @media all and (max-width: 992px)  {
 

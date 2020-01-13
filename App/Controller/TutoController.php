@@ -95,7 +95,7 @@ class TutoController extends Controller{
             $this->setFlash('Erreur de avec le formulaire.');
         }
 
-        header('location: index.php?action=homeUser');
+        header('location: index.php?action=writeTutoPage');
     }
 
     public function deleteTuto(){
@@ -190,28 +190,27 @@ class TutoController extends Controller{
                 if($tuto->checkValidate($idAstuce,$idMembre)==0){
 
                         $tuto->validateTuto($idAstuce,$idMembre);
-                        $this->setFlash('Tuto Validé','success');
+                        $this->setFlash('Tuto sauvegardé','success');
                         header('location: index.php?action=tuto&id='.$idAstuce.'');
                         exit (0);
                     
                 }else{
                     $this->setFlash('Vous avez deja valider ce tuto');
-                    header('location: index.php?action=tutos');
                 }      
                 
             }else{
                 $this->setFlash('Ce tuto n\'existe pas');
-                header('location: index.php?action=tutos');
             }
-            header('location: index.php?action=tutos');
+           
         }
-        
+        header('location: index.php?action=tutos');
     }
 
     public function deleteTutoForUser(){
         $this->isConnect();
         $astuce = new TutoManager();
         $astuce->deleteValidateTuto($_GET['idtuto'],$_GET['iduser']);
+        $this->setFlash('Tuto éffacé','success');
         header('location: index.php?action=homeUser');
     }
 

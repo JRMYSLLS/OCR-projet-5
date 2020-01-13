@@ -32,7 +32,7 @@ class Controller{
 
     public function isConnect(){
       if (!isset($_SESSION['pseudo'])) {
-        throw new \Exception("Vous devez étre connecté pour avoir accès à cette page");
+        throw new \Exception('Vous devez étre connecté pour avoir accès à cette page.');
       }
     }
 

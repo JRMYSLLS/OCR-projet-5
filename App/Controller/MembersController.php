@@ -1,13 +1,22 @@
 <?php
 namespace App\Controller;
 
+use App\Model\AstucesManager;
 use App\Model\MembersManager;
+use App\Model\TutoManager;
 
 class MembersController extends Controller{
 
     function accueil(){
         $this->loadView();
-        echo $this->twig->render('welcome.twig');
+        $astuces = new AstucesManager;
+        $tuto = new TutoManager;
+        $getAstuces = $astuces->getAstucesHome();
+        $getTutos = $tuto->getTutosHome();
+        echo $this->twig->render('welcome.twig',[
+            'astuces'=> $getAstuces,
+            'tutos'=> $getTutos
+        ]);
     }
 
     function connectionView(){
@@ -38,26 +47,27 @@ class MembersController extends Controller{
                 if($bddConfirmKey['confirm']==0){
                     $member->confirm($pseudo,$confirmKey);
                     $this->loadView();
-                    echo $this->twig->render('user/confirmation.twig',['user' =>[
+                    echo $this->twig->render('confirmation.twig',['user' =>[
                         'pseudo' => $pseudo,
                         'confirmKey' => $confirmKey
                     ]]);
-
+                        exit(0);
                 }else{
-                    echo 'compte deja creer';
+                    $this->setFlash('Votre compte à déjà etais confirmé.');
                 }      
 
             }else{
-                echo 'probleme verification';
+                $this->setFlash('Probleme de vérification.');
             }
         }else{
-            echo 'pas de GET';
+            $this->setFlash('Le lien ne semble pas fonctionné.');
         }
- 
+        header('location: index.php?action=welcome');
     }
 
     public function sendMail($mail,$messageMail){
-        $from = "sallesjry@gmail.com";
+
+        $from = "contact@salles-jeremie.com";
      
         $to = $mail;
 
@@ -65,7 +75,11 @@ class MembersController extends Controller{
 
         $message = $messageMail;
 
-        $headers = "From:" . $from;
+    
+        $headers = $from;
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= 'Content-Type:text/html; charset="utf-8"'.'\n';
+        $headers .= 'Content-Transfer-Encoding: 8bit';
 
      
         mail($to,$subject,$message, $headers);
@@ -101,9 +115,12 @@ class MembersController extends Controller{
                                 }
                                 $messageMail ='
                                 <html>
+                                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                                    <title>Inscription DAD IN FORMATION</title>
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                     <body>
                                         <div>
-                                            <p>Pour valider votre inscription, cliquer sur le <a href="dadinformation.salles-jeremie.fr/index.php?action=confirmation&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
+                                            <p>Pour valider votre inscription, cliquer sur le <a href="http://dadinformation.salles-jeremie.fr/index.php?action=confirmation&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
                                         </div>
                                     <body>
                                 </html>
@@ -192,7 +209,7 @@ class MembersController extends Controller{
                         <html>
                             <body>
                                 <div>
-                                    <p>Pour modifier votre mot de passe, cliquer sur le <a href="dadinformation.salles-jeremie.fr/index.php?action=resetPage&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
+                                    <p>Pour modifier votre mot de passe, cliquer sur le <a href="http://dadinformation.salles-jeremie.fr/index.php?action=resetPage&pseudo='.$pseudo.'&confirmKey='.$confirmKey.'">lien</a>.</p>
                                 </div>
                             <body>
                         </html>
@@ -223,13 +240,14 @@ class MembersController extends Controller{
 
             if($member->verifyForConfirm($pseudo,$confirmKey)==1){
                 $this->loadView();
-                echo $this->twig->render('user/changePass.twig',['user' =>[
+                echo $this->twig->render('changePass.twig',['user' =>[
                         'pseudo' => $pseudo,
                         'confirmKey' => $confirmKey
                     ]]);
                 
             }else{
-                echo 'erreur de verification';
+                $this->setFlash('Erreur de vérification.');
+                header('location: index.php?action=welcome');
             }
         }
       }
@@ -253,20 +271,22 @@ class MembersController extends Controller{
                         $member->resetPass($hpassword,$pseudo);
                         header('location: index.php?action=welcome');
                         $this->setFlash('Votre mot de passe à etait modifier','success');
+                        exit(0);
 
                     }else{
-                        echo 'vos mdp ne sont pas identique';
+                        $this->setFlash('Vos mots de passe ne sont pas identiques.');
                     }
                 }else{
-                    echo 'erreur de pseudo';
+                    $this->setFlash('Erreur avec votre pseudo.');
                 }
                 
             }else{
-                echo 'vous devez rentrer un new mdp';
+                $this->setFlash('Vous devez saisir un nouveau mot de passe.');
             }
         }else{
-            echo 'prout';
+            $this->setFlash('Erreur');
         }
+        header('location: index.php?action=resetPage');
       }
 
       public function disconnection(){
