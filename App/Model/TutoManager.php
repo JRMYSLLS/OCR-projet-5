@@ -58,6 +58,15 @@ class TutoManager extends Manager{
       return $affectedLine;
     }
 
+    function getLinkImage($id){
+      $db = $this->dbconnect();
+      $req = $db->prepare('SELECT image_link FROM Tuto WHERE id =?');
+      $req->execute(array($id));
+      $result = $req->fetch();
+
+      return $result;
+    }
+
     function deleteTuto($id){
       $db = $this->dbconnect();
       $req = $db->prepare('DELETE FROM Tuto WHERE id=?');

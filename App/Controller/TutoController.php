@@ -70,14 +70,13 @@ class TutoController extends Controller{
                         if(move_uploaded_file($_FILES['background']['tmp_name'], $dossier . $fichier)){
 
                             $tuto->newTuto($_SESSION['pseudo'],$_SESSION['id'],$title,$_FILES['background']['name'],$presentation,$content);
-                            $this->setFlash('Tuto publier.','success');
+                            $this->setFlash('Tuto publié.','success');
                             header('location: index.php?action=homeUser');
                             exit (0);
 
                         }else{
                             $this->setFlash('Erreur lors de la publication.');
                         }
-
                     
                     }else{
                         $this->setFlash('Vous devez uploader une image de type png, gif, jpg, jpeg.');
@@ -140,30 +139,42 @@ class TutoController extends Controller{
 
                 if(!empty($_POST['title']) && !empty($_POST['presentation']) && !empty($_POST['content'])){
 
-                    if(in_array($extension, $extensions)){
+                    $title = $_POST['title'];
+                    $presentation = $_POST['presentation'];
+                    $content = $_POST['content'];
 
-                        $fichier = strtr($fichier, 
-                        'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
-                        'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-                        $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+                    if(!empty($fichier)){
 
-                        if(move_uploaded_file($_FILES['background']['tmp_name'], $dossier . $fichier)){
+                        if(in_array($extension, $extensions)){
 
-                            $title = $_POST['title'];
-                            $presentation = $_POST['presentation'];
-                            $content = $_POST['content'];
+                            $fichier = strtr($fichier, 
+                            'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
+                            'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+                            $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+    
+                            if(move_uploaded_file($_FILES['background']['tmp_name'], $dossier . $fichier)){
 
-                            $tuto->editTuto($title,$_FILES['background']['name'],$presentation,$content,$id);
-                            \header('location: index.php?action=homeUser');
-                            exit (0);
-
+                                $tuto->editTuto($title,$_FILES['background']['name'],$presentation,$content,$id);
+                                $this->setFlash('Tuto modifié','success');
+                                \header('location: index.php?action=homeUser');
+                                exit (0);
+    
+                            }else{
+                                $this->setFlash('Erreur lors de la publication.');
+                            }
+    
+                        
                         }else{
-                            $this->setFlash('Erreur lors de la publication.');
+                            $this->setFlash('Vous devez uploader une image de type png, gif, jpg, jpeg.');
                         }
 
-                    
                     }else{
-                        $this->setFlash('Vous devez uploader une image de type png, gif, jpg, jpeg.');
+                        $getImage = $tuto->getLinkImage($id);
+                        $image = $getImage[0];
+                        $tuto->editTuto($title,$image,$presentation,$content,$id);
+                        $this->setFlash('Tuto modifié','success');
+                        \header('location: index.php?action=homeUser');
+                        exit (0);
                     }
 
                 }else{
@@ -174,7 +185,7 @@ class TutoController extends Controller{
         }else{
             $this->setFlash('Erreur de champs');
         }
-        echo 'prout';
+        header('location: index.php?action=writeTutoPage');
     }
 
     public function validateTuto(){
@@ -195,7 +206,7 @@ class TutoController extends Controller{
                         exit (0);
                     
                 }else{
-                    $this->setFlash('Vous avez deja valider ce tuto');
+                    $this->setFlash('Vous avez deja validé ce tuto');
                 }      
                 
             }else{
