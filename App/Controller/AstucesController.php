@@ -91,11 +91,11 @@ class AstucesController extends Controller{
                 if($astuce->checkValidate($idAstuce,$idMembre)==0){
 
                         $astuce->validateAstuce($idAstuce,$idMembre);
-                        $this->setFlash('Astuce sauvegarder','success');
+                        $this->setFlash('Astuce sauvegardée','success');
                         header('location: index.php?action=articles');
                     
                 }else{
-                    $this->setFlash('Vous avez deja valider cette astuce');
+                    $this->setFlash('Vous avez deja validé cette astuce');
                     header('location: index.php?action=articles');
                 }      
                 
@@ -128,7 +128,7 @@ class AstucesController extends Controller{
                     $title = htmlspecialchars($title);
                     $content = htmlspecialchars($content);
                     $astuce->newAstuce($title,$_SESSION['pseudo'],$content);
-                    $this->setFlash('Astuce publier','success');
+                    $this->setFlash('Astuce publiée','success');
                     \header('location: index.php?action=homeUser');
                 }else{
                     $this->setFlash('Vous devez remplir tout les champs.');

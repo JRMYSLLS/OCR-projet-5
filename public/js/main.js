@@ -190,7 +190,49 @@ $(function(){
   });
 })
 
+// VERIFICATION MAIL RESET VIEW
 
+$(function(){
+  $(".reset-view").click(function(e){
+    var content = $('.mail-reset').val();
+    if(content == ''){
+      swal('Vous devez saisir votre mail.').then(function(){
+        $('.mail-reset').focus();
+      });
+      e.preventDefault();
+    }
+  });
+});
+
+// VERIFICATION NEW PASSWORD
+
+$(function(){
+  $(".newPassView").click(function(e){
+    var pass = $('.newPassword').val();
+    var pass2 = $('.newPassword2').val();
+
+    if(pass == ''){
+      swal('Vous devez saisir votre nouveau mot de passe.').then(function(){
+        $('.newPassword').focus();
+      });
+      e.preventDefault();
+    }
+
+    if(pass2 == ''){
+      swal('Vous devez confirmer votre nouveau mot de passe.').then(function(){
+        $('.newPassword2').focus();
+      });
+      e.preventDefault();
+    }
+
+    if(pass != pass2){
+      swal('Vos mots de passe ne sont pas identiques.').then(function(){
+        $('newPassword2').focus();
+      });
+      e.preventDefault();
+    }
+  });
+});
 
 // AJAX TCHAT
 let url = 'index.php?action=refresh';

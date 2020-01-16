@@ -270,7 +270,7 @@ class MembersController extends Controller{
                         $hpassword = password_hash ($_POST['password'], PASSWORD_DEFAULT);
                         $member->resetPass($hpassword,$pseudo);
                         header('location: index.php?action=welcome');
-                        $this->setFlash('Votre mot de passe à etait modifier','success');
+                        $this->setFlash('Votre mot de passe à etait modifié','success');
                         exit(0);
 
                     }else{

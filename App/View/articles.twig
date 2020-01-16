@@ -9,7 +9,7 @@
 
 <div class="container margin-menu-custom">
         <h4 class="name pink"><i class="far fa-lightbulb blue"></i> Astuces</h4>
-        <p class="margin-0 blue">Retrouvez toutes les atuces des papas en cour de formation</p>
+        <p class="margin-0 blue">Retrouvez toutes les astuces des papas en cour de formation</p>
    
     <div class="row">
         {% for article in articles %} 
@@ -29,7 +29,7 @@
                     
                     <p class="card-text h-100">{{article.content}}</p>
                     {%if article.id_membre == session.id%}
-                    <p href="" class="btn blue-bg white-txt">Astuce sauvegardée</p>
+                    <p href="" class="btn blue-bg white-txt mb-0">Astuce sauvegardée</p>
                     {%else%}
                     <a href="index.php?action=validateAstuce&amp;id_astuce={{article.id}}&amp;page={{_get.page}}" class="btn pink-bg white-txt justify-self-start">Sauvegarder l'astuce</a>
                     {%endif%}
